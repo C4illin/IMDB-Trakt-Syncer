@@ -108,6 +108,7 @@ def main():
             })
             options.add_argument('--disable-gpu')
             options.add_argument('--start-maximized')
+            options.add_argument('--window-size=1920,1080')
             options.add_argument('--disable-notifications')
             options.add_argument("--disable-third-party-cookies")
             options.add_argument("--disable-dev-shm-usage")
@@ -241,6 +242,8 @@ def main():
                 # Change Language to English
                 english_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span[id*='nav-language-selector-contents'] li[aria-label*='English (United States)']")))
                 driver.execute_script("arguments[0].click();", english_element)
+                # Allow time for setting to apply
+                time.sleep(1)
             
             # Check IMDB reference view setting for compatability. See: https://www.imdb.com/preferences/general
             # Load page
@@ -260,6 +263,7 @@ def main():
                 submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label*='Save']")))
                 driver.execute_script("arguments[0].click();", submit)
                 reference_view_changed = True
+                # Allow time for setting to apply
                 time.sleep(1)
                 
             # Initalize list values
@@ -1305,6 +1309,8 @@ def main():
                 # Change Language to Original
                 original_language_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, f"span[id*='nav-language-selector-contents'] li[aria-label*='{original_language}']")))
                 driver.execute_script("arguments[0].click();", original_language_element)
+                # Allow time for setting to apply
+                time.sleep(1)
                 
             # Find reference view checkbox
             if reference_view_changed:
@@ -1320,6 +1326,7 @@ def main():
                 # Submit
                 submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label*='Save']")))
                 driver.execute_script("arguments[0].click();", submit)
+                # Allow time for setting to apply
                 time.sleep(1)
             
             #Close web driver

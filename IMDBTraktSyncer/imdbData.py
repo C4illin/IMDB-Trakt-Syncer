@@ -454,7 +454,7 @@ def get_imdb_reviews(driver, wait, directory):
         wait.until(lambda driver: "user/" in driver.current_url)
         
         # Copy the full URL to a variable and append reviews to it
-        reviews_url = driver.current_url + "reviews/"
+        reviews_url = driver.current_url + "/reviews/"
         
         # Load page
         success, status_code, url, driver, wait = EH.get_page_with_retries(reviews_url, driver, wait)
@@ -475,7 +475,7 @@ def get_imdb_reviews(driver, wait, directory):
                 for element in review_elements:
                     review = {}
                     # Extract review details
-                    review['Title'] = element.find_element(By.CSS_SELECTOR, "div[data-testid='review-title-header'] h3 span").text.strip()
+                    review['Title'] = element.find_element(By.CSS_SELECTOR, "div[data-testid='review-title-header'] h4 span").text.strip()
                     date_text = element.find_element(By.CSS_SELECTOR, "li.review-date").text
                     review['Year'] = int(date_text.strip().split()[-1]) if date_text else None
                     review['IMDB_ID'] = element.find_element(By.CSS_SELECTOR, "div[data-testid='review-summary'] a").get_attribute("href").split('/')[4]
